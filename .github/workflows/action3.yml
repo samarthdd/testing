@@ -30,7 +30,7 @@ jobs:
 
       - name: Moving build to artifacts directory
         run: |
-          chmod +x ./moveFiles.sh
+          chmod +x ./my-script.sh
 
       - name: Run a one-line script
         run: ./my-script.sh
