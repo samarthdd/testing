@@ -34,7 +34,7 @@ jobs:
         run: ./my-script.sh
         env:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
-          TARGET_REPO: https://github.com/samarthdd/git-wiki-action.wiki.git
+          TARGET_REPO: samarthdd/git-wiki-action.wiki.git
           FOLDER: doc
           EXCLUDE_REGEX: Creating_OVA
           WIKI_NAME: wiki_demo.md
