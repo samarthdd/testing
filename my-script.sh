@@ -15,7 +15,7 @@ function error() {
 }
 
 function add_mask() {
-    echo "::add-mask::$doc"
+    echo "::add-mask::$src"
 }
 
 if [ -z "$GITHUB_ACTOR" ]; then
