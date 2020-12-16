@@ -33,7 +33,9 @@ if [ -z "$GH_PERSONAL_ACCESS_TOKEN" ]; then
     exit 1
 fi
 
-src=doc
+src=${FOLDER}
+STRING=${EXCLUDE_REGEX}
+WIKI_NAME=${WIKI_NAME}
 add_mask "${GH_PERSONAL_ACCESS_TOKEN}"
 
 if [ -z "${WIKI_COMMIT_MESSAGE:-}" ]; then
@@ -41,7 +43,7 @@ if [ -z "${WIKI_COMMIT_MESSAGE:-}" ]; then
     WIKI_COMMIT_MESSAGE='Automatically publish wiki'
 fi
 
-GIT_REPOSITORY_URL="https://${GH_PERSONAL_ACCESS_TOKEN}@github.com/$GITHUB_REPOSITORY.wiki.git"
+GIT_REPOSITORY_URL="https://${GH_PERSONAL_ACCESS_TOKEN}@github.com/${TARGET_REPO}"
 
 debug "Checking out wiki repository"
 tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
@@ -55,24 +57,25 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 ) || exit 1
 
 debug "Enumerating contents of $src"
-STRING="Creating_OVA"
+
 
 printf 'Enumerating contents of' "$src"
 for folder in $(find $src -maxdepth 1 -execdir basename '{}' ';' | sort )  ; do
   printf '%s\n' "$folder"
 
-for file in $(find "$src/$folder" -maxdepth 1 -type f -name '*.md' -execdir basename '{}' ';' | sort ); do
-    if [[ "$file" == *"$STRING"* ]];then
-    printf '%s\n' "$file"
-    else
-    debug "Copying $file"
-    printf '%s\n' "$src/$folder/$file"
-    cat "$src/$folder/$file" >> wiki_test2.md
-    echo '' >> wiki_test2.md
-    cp wiki_test2.md "$tmp_dir"
-    fi
+  for file in $(find "$src/$folder" -maxdepth 1 -type f -name '*.md' -execdir basename '{}' ';' | sort ); do
+      if [[ "$file" == *"$STRING"* ]];then
+        printf '%s\n' "$file"
+      else
+        debug "Copying $file"
+        printf '%s\n' "$src/$folder/$file"
+        cat "$src/$folder/$file" >> $WIKI_NAME
+        echo '' >> $WIKI_NAME
+        cp $WIKI_NAME "$tmp_dir"
+      fi
+  done
 done
-done
+
 debug "Committing and pushing changes"
 (
     cd "$tmp_dir" || exit 1
