@@ -6,8 +6,6 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -38,6 +36,8 @@ jobs:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
           TARGET_REPO: https://github.com/samarthdd/git-wiki-action.wiki.git
           FOLDER: doc
+          EXCLUDE_REGEX: Creating_OVA
+          NAME: wiki_demo.md
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
