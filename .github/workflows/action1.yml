@@ -12,6 +12,6 @@ jobs:
       - name: Upload Documentation to Wiki
         uses: samarthdd/git-wiki-action@master
         with:
-          path: "docs"
+          path: "doc"
         env:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
