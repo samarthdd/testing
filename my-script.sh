@@ -3,19 +3,19 @@
 set -euo pipefail
 
 function debug() {
-    echo "::debug file=${BASH_SOURCE[0]},line=${BASH_LINENO[0]}::$src"
+    echo "::debug file=${BASH_SOURCE[0]},line=${BASH_LINENO[0]}::$SRC_DIR"
 }
 
 function warning() {
-    echo "::warning file=${BASH_SOURCE[0]},line=${BASH_LINENO[0]}::$src"
+    echo "::warning file=${BASH_SOURCE[0]},line=${BASH_LINENO[0]}::$SRC_DIR"
 }
 
 function error() {
-    echo "::error file=${BASH_SOURCE[0]},line=${BASH_LINENO[0]}::$src"
+    echo "::error file=${BASH_SOURCE[0]},line=${BASH_LINENO[0]}:: $SRC_DIR"
 }
 
 function add_mask() {
-    echo "::add-mask::$src"
+    echo "::add-mask::$SRC_DIR"
 }
 
 if [ -z "$GITHUB_ACTOR" ]; then
@@ -33,7 +33,7 @@ if [ -z "$GH_PERSONAL_ACCESS_TOKEN" ]; then
     exit 1
 fi
 
-src=${FOLDER}
+SRC_DIR=${FOLDER}
 STRING=${EXCLUDE_REGEX}
 WIKI_NAME=${WIKI_NAME}
 add_mask "${GH_PERSONAL_ACCESS_TOKEN}"
@@ -56,20 +56,20 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
     git pull "$GIT_REPOSITORY_URL"
 ) || exit 1
 
-debug "Enumerating contents of $src"
+debug "Enumerating contents of $SRC_DIR"
 
 
-printf 'Enumerating contents of' "$src"
-for folder in $(find $src -maxdepth 1 -execdir basename '{}' ';' | sort )  ; do
+printf 'Enumerating contents of'  "$SRC_DIR"
+for folder in $(find $SRC_DIR -maxdepth 1 -execdir basename '{}' ';' | sort )  ; do
   printf '%s\n' "$folder"
 
-  for file in $(find "$src/$folder" -maxdepth 1 -type f -name '*.md' -execdir basename '{}' ';' | sort ); do
+  for file in $(find "$SRC_DIR/$folder" -maxdepth 1 -type f -name '*.md' -execdir basename '{}' ';' | sort ); do
       if [[ "$file" == *"$STRING"* ]];then
         printf '%s\n' "$file"
       else
         debug "Copying $file"
-        printf '%s\n' "$src/$folder/$file"
-        cat "$src/$folder/$file" >> $WIKI_NAME
+        printf '%s\n' "$SRC_DIR/$folder/$file"
+        cat "$SRC_DIR/$folder/$file" >> $WIKI_NAME
         echo '' >> $WIKI_NAME
         cp $WIKI_NAME "$tmp_dir"
       fi
