@@ -36,9 +36,6 @@ fi
 SRC_DIR=${FOLDER}
 STRING=${EXCLUDE_REGEX}
 WIKI_NAME=${WIKI_NAME}
-TAG=${TAG}
-IMAGE_TAG=$TAG-$GITHUB_SHA
-
 add_mask "${GH_PERSONAL_ACCESS_TOKEN}"
 
 if [ -z "${WIKI_COMMIT_MESSAGE:-}" ]; then
@@ -82,23 +79,9 @@ done
 debug "Committing and pushing changes"
 (
     cd "$tmp_dir" || exit 1
-
-    git checkout -b $IMAGE_TAG
-
     git add .
     git commit -m "$WIKI_COMMIT_MESSAGE"
-    git remote add origin "$GIT_REPOSITORY_URL"
-    git push --set-upstream "$GIT_REPOSITORY_URL" $IMAGE_TAG
-
-    git request-pull $IMAGE_TAG "$GIT_REPOSITORY_URL" master
-    git fetch origin
-    git checkout origin/master
-    git merge origin/$IMAGE_TAG
-
-#    # create a pull request from a new branch to target branch, merge the PR and delete the source branch.
-#    gh pr create --base master --title "Updated wiki" --body ""
-#    sleep 5s
-#    gh pr merge $IMAGE_TAG -s
+    git push --set-upstream "$GIT_REPOSITORY_URL" master
 ) || exit 1
 
 rm -rf "$tmp_dir"
