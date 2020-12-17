@@ -41,3 +41,4 @@ jobs:
           SUB_FOLDER: abc  
           EXCLUDE_REGEX: Creating_OVA
           WIKI_NAME: wiki_demo12345.md
+          TAG: wiki
