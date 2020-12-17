@@ -37,7 +37,7 @@ SRC_DIR=${FOLDER}
 STRING=${EXCLUDE_REGEX}
 WIKI_NAME=${WIKI_NAME}
 TAG=${TAG}
-#IMAGE_TAG=$TAG-$GITHUB_SHA
+IMAGE_TAG=$TAG-$GITHUB_SHA
 
 add_mask "${GH_PERSONAL_ACCESS_TOKEN}"
 
@@ -57,7 +57,6 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
     git config user.name "$GITHUB_ACTOR"
     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
     git pull "$GIT_REPOSITORY_URL"
-    git checkout -b ""
 ) || exit 1
 
 debug "Enumerating contents of $SRC_DIR"
@@ -89,7 +88,7 @@ debug "Committing and pushing changes"
     git push --set-upstream "$GIT_REPOSITORY_URL" $TAG
 
     # create a pull request from a new branch to target branch, merge the PR and delete the source branch.
-    gh pr create --base $TAG --title "Updated wiki image tag to $IMAGE_TAG" --body ""
+    gh pr create --base $TAG --title "Updated wiki" --body ""
     sleep 5s
     gh pr merge $IMAGE_TAG -s
 ) || exit 1
