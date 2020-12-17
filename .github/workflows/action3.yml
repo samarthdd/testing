@@ -41,9 +41,3 @@ jobs:
           SUB_FOLDER: abc  
           EXCLUDE_REGEX: Creating_OVA
           WIKI_NAME: wiki_demo12345.md
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
