@@ -58,17 +58,14 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 
 debug "Enumerating contents of $SRC_DIR"
 
-
-printf 'Enumerating contents of'  "$SRC_DIR"
 for folder in $(find $SRC_DIR -maxdepth 1 -execdir basename '{}' ';' | sort )  ; do
-  printf '%s\n' "$folder"
-
   for file in $(find "$SRC_DIR/$folder" -maxdepth 1 -type f -name '*.md' -execdir basename '{}' ';' | sort ); do
+      printf "File loc" "$SRC_DIR/$folder/$file"
       if [[ "$file" == *"$STRING"* ]];then
-        printf '%s\n' "$file"
+        debug '%s\n' "$file"
       else
         debug "Copying $file"
-        printf '%s\n' "$SRC_DIR/$folder/$file"
+        debug '%s\n' "$SRC_DIR/$folder/$file"
         cat "$SRC_DIR/$folder/$file" >> $WIKI_NAME
         echo '' >> $WIKI_NAME
         cp $WIKI_NAME "$tmp_dir"
