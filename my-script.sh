@@ -57,10 +57,10 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 ) || exit 1
 
 debug "Enumerating contents of $SRC_DIR"
-
+printf "File loc $SRC_DIR"
 for folder in $(find $SRC_DIR -maxdepth 1 -execdir basename '{}' ';' | sort )  ; do
   for file in $(find "$SRC_DIR/$folder" -maxdepth 1 -type f -name '*.md' -execdir basename '{}' ';' | sort ); do
-      printf "File loc" "$SRC_DIR/$folder/$file"
+      printf "File loc $SRC_DIR/$folder/$file"
       if [[ "$file" == *"$STRING"* ]];then
         debug '%s\n' "$file"
       else
