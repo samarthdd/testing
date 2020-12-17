@@ -33,7 +33,8 @@ if [ -z "$GH_PERSONAL_ACCESS_TOKEN" ]; then
     exit 1
 fi
 
-SRC_DIR='doc/abc'
+SRC_DIR=${FOLDER}
+printf ${FOLDER}
 STRING=${EXCLUDE_REGEX}
 WIKI_NAME=${WIKI_NAME}
 add_mask "${GH_PERSONAL_ACCESS_TOKEN}"
