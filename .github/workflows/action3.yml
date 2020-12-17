@@ -40,7 +40,7 @@ jobs:
           FOLDER: "doc/abc"
           SUB_FOLDER: abc  
           EXCLUDE_REGEX: Creating_OVA
-          WIKI_NAME: wiki_demo123.md
+          WIKI_NAME: wiki_demo1234.md
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
