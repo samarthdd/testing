@@ -40,7 +40,7 @@ jobs:
           FOLDER: "doc/abc"
           SUB_FOLDER: abc  
           EXCLUDE_REGEX: Creating_OVA
-          WIKI_NAME: wiki_demo12345.md
+          WIKI_NAME: wiki_demo123456.md
           TAG: wiki
           IMAGE_TAG: ${{ github.sha }}
           GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
