@@ -34,7 +34,6 @@ if [ -z "$GH_PERSONAL_ACCESS_TOKEN" ]; then
 fi
 
 SRC_DIR=${FOLDER}
-SUB_FOLDER=${SUB_FOLDER}
 STRING=${EXCLUDE_REGEX}
 WIKI_NAME=${WIKI_NAME}
 add_mask "${GH_PERSONAL_ACCESS_TOKEN}"
@@ -57,17 +56,18 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
     git pull "$GIT_REPOSITORY_URL"
 ) || exit 1
 
-debug "Enumerating contents of $SRC_DIR/$SUB_FOLDER"
-printf "File loc $SRC_DIR/$SUB_FOLDER"
+debug "Enumerating contents of $SRC_DIR"
+printf "File location $SRC_DIR"
+debug "File location $SRC_DIR"
 for folder in $(find $SRC_DIR -maxdepth 1 -execdir basename '{}' ';' | sort )  ; do
-  for file in $(find "$SRC_DIR/$SUB_FOLDER/$folder" -maxdepth 1 -type f -name '*.md' -execdir basename '{}' ';' | sort ); do
-      printf "File loc $SRC_DIR/$SUB_FOLDER/$folder/$file"
+  for file in $(find "$SRC_DIR/$folder" -maxdepth 1 -type f -name '*.md' -execdir basename '{}' ';' | sort ); do
+      printf "File loc $SRC_DIR/$folder/$file"
       if [[ "$file" == *"$STRING"* ]];then
         debug '%s\n' "$file"
       else
         debug "Copying $file"
-        debug '%s\n' "$SRC_DIR/$SUB_FOLDER/$folder/$file"
-        cat "$SRC_DIR/$SUB_FOLDER/$folder/$file" >> $WIKI_NAME
+        debug '%s\n' "$SRC_DIR/$folder/$file"
+        cat "$SRC_DIR/$folder/$file" >> $WIKI_NAME
         echo '' >> $WIKI_NAME
         cp $WIKI_NAME "$tmp_dir"
       fi
