@@ -88,10 +88,10 @@ debug "Committing and pushing changes"
     git commit -m "$WIKI_COMMIT_MESSAGE"
     git push "$GIT_REPOSITORY_URL" $IMAGE_TAG
 
-    # create a pull request from a new branch to target branch, merge the PR and delete the source branch.
-    gh pr create --base $TAG --title "Updated wiki" --body ""
-    sleep 5s
-    gh pr merge $IMAGE_TAG -s
+#    # create a pull request from a new branch to target branch, merge the PR and delete the source branch.
+#    gh pr create --base $TAG --title "Updated wiki" --body ""
+#    sleep 5s
+#    gh pr merge $IMAGE_TAG -s
 ) || exit 1
 
 rm -rf "$tmp_dir"
