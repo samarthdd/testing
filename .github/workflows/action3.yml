@@ -6,7 +6,7 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
-    paths: 'doc/abc/**'
+    paths: doc
     
 
   # Allows you to run this workflow manually from the Actions tab
@@ -37,7 +37,8 @@ jobs:
         env:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
           TARGET_REPO: samarthdd/git-wiki-action.wiki.git
-          FOLDER: 'doc/abc'
+          FOLDER: doc
+          SUB_FOLDER: abc  
           EXCLUDE_REGEX: Creating_OVA
           WIKI_NAME: wiki_demo.md
 
