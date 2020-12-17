@@ -91,7 +91,7 @@ debug "Committing and pushing changes"
     git push --set-upstream "$GIT_REPOSITORY_URL" $IMAGE_TAG
 
     git request-pull $IMAGE_TAG "$GIT_REPOSITORY_URL" master
-
+    git fetch origin
     git checkout master
     git merge $IMAGE_TAG
 
