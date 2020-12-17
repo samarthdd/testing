@@ -87,12 +87,11 @@ debug "Committing and pushing changes"
 
     git add .
     git commit -m "$WIKI_COMMIT_MESSAGE"
-    git remote add origin "$GIT_REPOSITORY_URL"
-
-    git push origin $IMAGE_TAG
+    git push --set-upstream "$GIT_REPOSITORY_URL" $IMAGE_TAG
+    git request-pull $IMAGE_TAG "$GIT_REPOSITORY_URL" master
 
 #    # create a pull request from a new branch to target branch, merge the PR and delete the source branch.
-#    gh pr create --base origin --title "Updated wiki" --body ""
+#    gh pr create --base master --title "Updated wiki" --body ""
 #    sleep 5s
 #    gh pr merge $IMAGE_TAG -s
 ) || exit 1
