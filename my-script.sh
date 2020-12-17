@@ -82,7 +82,10 @@ done
 debug "Committing and pushing changes"
 (
     cd "$tmp_dir" || exit 1
+
     git checkout -b $IMAGE_TAG
+    git config user.email github-actions@github.com
+    git config user.name github-actions
     git add .
     git commit -m "$WIKI_COMMIT_MESSAGE"
     git push --set-upstream "$GIT_REPOSITORY_URL" $TAG
