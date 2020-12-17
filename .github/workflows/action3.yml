@@ -43,3 +43,4 @@ jobs:
           WIKI_NAME: wiki_demo12345.md
           TAG: wiki
           IMAGE_TAG: ${{ github.sha }}
+          GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
