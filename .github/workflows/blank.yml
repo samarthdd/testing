@@ -29,7 +29,7 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
       - name: Compile Mermaid Markdown
-          uses: neenjaw/compile-mermaid-markdown-action@0.2.4
+        uses: neenjaw/compile-mermaid-markdown-action@0.2.4
 
 
       # Runs a set of commands using the runners shell
